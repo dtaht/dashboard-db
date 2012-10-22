@@ -7,9 +7,8 @@ DB="--dbname $1"
 fi
 
 #PVER=`psql --version | head -1 | awk '{print $3;}' | cut -f1-2 -d.`
-PVER=8.4
-CONTRIBDIR=/usr/share/postgresql/$PVER/contrib
-
+PVER=9.1
+CONTRIBDIR=/usr/share/postgresql/$PVER/extension
 # fixme, you need perms to create databases
 # You need:
 # pgplang
@@ -19,8 +18,8 @@ CONTRIBDIR=/usr/share/postgresql/$PVER/contrib
 # postgis (for geoip)
 psql $DB -f init.sql
 createlang plpgsql $DB
-psql $DB -f $CONTRIBDIR/pgcrypto.sql
-psql $DB -f $CONTRIBDIR/pg_buffercache.sql
+#psql $DB -f $CONTRIBDIR/pgcrypto--1.0.sql
+#psql $DB -f $CONTRIBDIR/pg_buffercache--1.0.sql
 
 # FIXME Use bytea for ids as sha1 hashes to make the db replicatable
 # FIXME Why use ids at all? DJANGO requires them until after GSOC 2011
